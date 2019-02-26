@@ -30,10 +30,91 @@
 --   datetimetype=
 --
 
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
 DROP DATABASE IF EXISTS vee-andmebaas;
-CREATE DATABASE vee-andmebaas;
+CREATE DATABASE "vee-andmebaas"
+    WITH 
+    OWNER = t164416
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.UTF-8'
+    LC_CTYPE = 'en_US.UTF-8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+ALTER DATABASE vee-andmebaas OWNER TO t164416;
 
 -- NOTICE: At this place you need to connect to the new database and run the rest of the statements.
+
+\connect vee-andmebaas
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 4 (class 3079 OID 940320)
+-- Name: fuzzystrmatch; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS fuzzystrmatch WITH SCHEMA public;
+
+
+--
+-- TOC entry 3353 (class 0 OID 0)
+-- Dependencies: 4
+-- Name: EXTENSION fuzzystrmatch; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION fuzzystrmatch IS 'determine similarities and distance between strings';
+
+
+--
+-- TOC entry 3 (class 3079 OID 884276)
+-- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
+
+
+--
+-- TOC entry 3354 (class 0 OID 0)
+-- Dependencies: 3
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
+
+
+--
+-- TOC entry 2 (class 3079 OID 883817)
+-- Name: postgres_fdw; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS postgres_fdw WITH SCHEMA public;
+
+
+--
+-- TOC entry 3355 (class 0 OID 0)
+-- Dependencies: 2
+-- Name: EXTENSION postgres_fdw; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION postgres_fdw IS 'foreign-data wrapper for remote PostgreSQL servers';
 
 --
 -- Table structure for table 'katse'
