@@ -7,12 +7,12 @@
 -- Program Version 5.5.281
 --
 -- OPTIONS:
---   sourcefilename=C:/Users/Aivar/Desktop/vee-andmebaas.accdb
+--   sourcefilename=C:/Users/Aivar/Desktop/database/vee_andmebaas.accdb
 --   sourceusername=
 --   sourcepassword=
 --   sourcesystemdatabase=
 --   destinationserver=apex.ttu.ee
---   destinationdatabase=vee-andmebaas
+--   destinationdatabase=vee_andmebaas
 --   maintenancedb=postgres
 --   dropdatabase=1
 --   createtables=1
@@ -30,216 +30,309 @@
 --   datetimetype=
 --
 
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
-
-DROP DATABASE IF EXISTS vee-andmebaas;
-CREATE DATABASE "vee-andmebaas"
-    WITH 
-    OWNER = t164416
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'en_US.UTF-8'
-    LC_CTYPE = 'en_US.UTF-8'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1;
-
-ALTER DATABASE vee-andmebaas OWNER TO t164416;
+DROP DATABASE IF EXISTS vee_andmebaas;
+CREATE DATABASE vee_andmebaas;
 
 -- NOTICE: At this place you need to connect to the new database and run the rest of the statements.
 
-\connect vee-andmebaas
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
-
 --
--- TOC entry 4 (class 3079 OID 940320)
--- Name: fuzzystrmatch; Type: EXTENSION; Schema: -; Owner: 
+-- Table structure for table 'analytes'
 --
 
-CREATE EXTENSION IF NOT EXISTS fuzzystrmatch WITH SCHEMA public;
+DROP TABLE IF EXISTS analytes;
 
-
---
--- TOC entry 3353 (class 0 OID 0)
--- Dependencies: 4
--- Name: EXTENSION fuzzystrmatch; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION fuzzystrmatch IS 'determine similarities and distance between strings';
-
-
---
--- TOC entry 3 (class 3079 OID 884276)
--- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
-
-
---
--- TOC entry 3354 (class 0 OID 0)
--- Dependencies: 3
--- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
-
-
---
--- TOC entry 2 (class 3079 OID 883817)
--- Name: postgres_fdw; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS postgres_fdw WITH SCHEMA public;
-
-
---
--- TOC entry 3355 (class 0 OID 0)
--- Dependencies: 2
--- Name: EXTENSION postgres_fdw; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION postgres_fdw IS 'foreign-data wrapper for remote PostgreSQL servers';
-
---
--- Table structure for table 'katse'
---
-
-DROP TABLE IF EXISTS katse;
-
-CREATE TABLE katse (
-  katse_id SERIAL NOT NULL, 
-  kuupaev TIMESTAMP, 
-  operaatori_id INTEGER DEFAULT 0, 
-  katse_kirjeldus text, 
-  sagedus INTEGER DEFAULT 0, 
-  pinge INTEGER DEFAULT 0, 
-  PRIMARY KEY (katse_id)
+CREATE TABLE analytes (
+  analyte_id SERIAL NOT NULL, 
+  analyte_name VARCHAR(255), 
+  PRIMARY KEY (analyte_id)
 );
 
 --
--- Dumping data for table 'katse'
+-- Dumping data for table 'analytes'
 --
 
-INSERT INTO katse (katse_id, kuupaev, operaatori_id, katse_kirjeldus, sagedus, pinge) VALUES (1, '2019-02-07 00:00:00', 1, 'Oli mingi katse.', 105, 2);
-INSERT INTO katse (katse_id, kuupaev, operaatori_id, katse_kirjeldus, sagedus, pinge) VALUES (2, '2019-02-26 00:00:00', 1, 'Laks nihu.', 440, 2);
-INSERT INTO katse (katse_id, kuupaev, operaatori_id, katse_kirjeldus, sagedus, pinge) VALUES (3, '2019-02-07 00:00:00', 2, 'ops', 440, 5);
-INSERT INTO katse (katse_id, kuupaev, operaatori_id, katse_kirjeldus, sagedus, pinge) VALUES (4, '2019-02-01 00:00:00', 3, 'lol', 500, 1);
-INSERT INTO katse (katse_id, kuupaev, operaatori_id, katse_kirjeldus, sagedus, pinge) VALUES (5, '2019-02-02 00:00:00', 3, 'lol', 500, 1);
-INSERT INTO katse (katse_id, kuupaev, operaatori_id, katse_kirjeldus, sagedus, pinge) VALUES (6, '2019-02-08 00:00:00', 3, 'lol 2', 240, 5);
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (1, 'Na');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (2, 'K');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (3, 'Li');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (4, 'NH4');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (5, 'Ba');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (6, 'Mg');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (7, 'Mn');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (8, 'Fe2+');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (9, 'Br');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (10, 'Cl');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (11, 'SO4');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (12, 'SO3');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (13, 'NO3');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (14, 'NO2');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (15, 'F');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (16, 'PO4');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (17, 'Thiamin');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (18, 'Nicotinic acid');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (19, 'Nicotinamid');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (20, 'Pyridoxid');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (21, 'Ascorbic acid');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (22, 'GABA');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (23, 'Arginin');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (24, 'Lysin');
+INSERT INTO analytes (analyte_id, analyte_name) VALUES (25, 'Phenylalanin');
+-- 25 records
+
+SELECT setval('analytes_analyte_id_seq', MAX(analyte_id)) FROM analytes;
+
+--
+-- Table structure for table 'matrixes'
+--
+
+DROP TABLE IF EXISTS matrixes;
+
+CREATE TABLE matrixes (
+  matrix_id SERIAL NOT NULL, 
+  matrix_name VARCHAR(255), 
+  PRIMARY KEY (matrix_id)
+);
+
+--
+-- Dumping data for table 'matrixes'
+--
+
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (1, 'soil');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (2, 'sand');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (3, 'rocks');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (4, 'tap water');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (5, 'rain water');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (6, 'spring water');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (7, 'aquarium water');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (8, 'sea water');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (9, 'canalization water');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (10, 'saliva');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (11, 'blood');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (12, 'urin');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (13, 'plant extract');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (14, 'juic');
+INSERT INTO matrixes (matrix_id, matrix_name) VALUES (15, 'drink');
+-- 15 records
+
+SELECT setval('matrixes_matrix_id_seq', MAX(matrix_id)) FROM matrixes;
+
+--
+-- Table structure for table 'bges'
+--
+
+DROP TABLE IF EXISTS bges;
+
+CREATE TABLE bges (
+  bge_id SERIAL NOT NULL, 
+  bge_name VARCHAR(255), 
+  PRIMARY KEY (bge_id)
+);
+
+--
+-- Dumping data for table 'bges'
+--
+
+INSERT INTO bges (bge_id, bge_name) VALUES (1, 'Acetic acid 1M');
+INSERT INTO bges (bge_id, bge_name) VALUES (2, 'Acetic acid 2M');
+INSERT INTO bges (bge_id, bge_name) VALUES (3, 'Acetic acid 3M');
+INSERT INTO bges (bge_id, bge_name) VALUES (4, 'Acetic acid 6M');
+INSERT INTO bges (bge_id, bge_name) VALUES (5, 'Mes');
+INSERT INTO bges (bge_id, bge_name) VALUES (6, 'His');
 -- 6 records
 
-SELECT setval('katse_katse_id_seq', MAX(katse_id)) FROM katse;
+SELECT setval('bges_bge_id_seq', MAX(bge_id)) FROM bges;
 
 --
--- Table structure for table 'mootmine'
+-- Table structure for table 'user_classes'
 --
 
-DROP TABLE IF EXISTS mootmine;
+DROP TABLE IF EXISTS user_classes;
 
-CREATE TABLE mootmine (
-  mootmise_id SERIAL NOT NULL, 
-  katse_id INTEGER DEFAULT 0, 
-  mootmise_aeg INTEGER DEFAULT 0, 
-  detektori_signaal INTEGER DEFAULT 0, 
-  PRIMARY KEY (mootmise_id)
+CREATE TABLE user_classes (
+  user_class_id SERIAL NOT NULL, 
+  user_class_name VARCHAR(255), 
+  PRIMARY KEY (user_class_id)
 );
 
 --
--- Dumping data for table 'mootmine'
+-- Dumping data for table 'user_classes'
 --
 
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (1, 1, 0, 1312313);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (2, 1, 1, 12312313);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (3, 1, 2, 3232);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (4, 1, 3, 444444);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (5, 1, 4, 5555555);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (6, 2, 0, 11111);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (7, 2, 1, 22222);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (8, 2, 2, 123123123);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (9, 2, 3, 1111);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (10, 2, 4, 123);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (11, 3, 0, 1);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (12, 3, 1, 22222);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (13, 3, 2, 123123123);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (14, 3, 3, 22);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (15, 3, 4, 112231);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (16, 4, 0, 11);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (17, 4, 1, 12313);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (18, 4, 2, 23123123);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (19, 5, 0, 123123);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (20, 5, 1, 12);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (21, 6, 0, 999999);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (22, 6, 1, 123123);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (23, 6, 2, 55555);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (24, 6, 3, 2131);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (25, 6, 4, 123114);
-INSERT INTO mootmine (mootmise_id, katse_id, mootmise_aeg, detektori_signaal) VALUES (26, 6, 5, 1231);
--- 26 records
-
-SELECT setval('mootmine_mootmise_id_seq', MAX(mootmise_id)) FROM mootmine;
-
-CREATE INDEX mootmine_KatseID ON mootmine (katse_id);
-
---
--- Table structure for table 'operaatorid'
---
-
-DROP TABLE IF EXISTS operaatorid;
-
-CREATE TABLE operaatorid (
-  operaatori_id SERIAL NOT NULL, 
-  operaatori_eesnimi VARCHAR(255), 
-  operaatori_perekonnamini VARCHAR(255), 
-  PRIMARY KEY (operaatori_id)
-);
-
---
--- Dumping data for table 'operaatorid'
---
-
-INSERT INTO operaatorid (operaatori_id, operaatori_eesnimi, operaatori_perekonnamini) VALUES (1, 'Aivar', 'Loopalu');
-INSERT INTO operaatorid (operaatori_id, operaatori_eesnimi, operaatori_perekonnamini) VALUES (2, 'Bob', 'Mbob');
-INSERT INTO operaatorid (operaatori_id, operaatori_eesnimi, operaatori_perekonnamini) VALUES (3, 'Tere', 'Tere');
+INSERT INTO user_classes (user_class_id, user_class_name) VALUES (1, 'Administrators');
+INSERT INTO user_classes (user_class_id, user_class_name) VALUES (2, 'Scientists');
+INSERT INTO user_classes (user_class_id, user_class_name) VALUES (3, 'Regular users');
 -- 3 records
 
-SELECT setval('operaatorid_operaatori_id_seq', MAX(operaatori_id)) FROM operaatorid;
+SELECT setval('user_classes_user_class_id_seq', MAX(user_class_id)) FROM user_classes;
 
 --
--- Table structure for table 'piigid'
+-- Table structure for table 'users'
 --
 
-DROP TABLE IF EXISTS piigid;
+DROP TABLE IF EXISTS users;
 
-CREATE TABLE piigid (
-  piigi_id SERIAL NOT NULL, 
-  piigi_aeg INTEGER DEFAULT 0, 
-  piigi_laius INTEGER DEFAULT 0, 
-  piigi_korgus INTEGER DEFAULT 0, 
-  piigi_pindala INTEGER DEFAULT 0, 
-  PRIMARY KEY (piigi_id)
+CREATE TABLE users (
+  user_id SERIAL NOT NULL, 
+  user_name VARCHAR(255), 
+  user_class INTEGER DEFAULT 0, 
+  PRIMARY KEY (user_id)
 );
 
 --
--- Dumping data for table 'piigid'
+-- Dumping data for table 'users'
+--
+
+INSERT INTO users (user_id, user_name, user_class) VALUES (1, 'Administrator', 1);
+INSERT INTO users (user_id, user_name, user_class) VALUES (2, 'Scientist', 2);
+INSERT INTO users (user_id, user_name, user_class) VALUES (3, 'Regular user', 3);
+-- 3 records
+
+SELECT setval('users_user_id_seq', MAX(user_id)) FROM users;
+
+--
+-- Table structure for table 'methods'
+--
+
+DROP TABLE IF EXISTS methods;
+
+CREATE TABLE methods (
+  method_id SERIAL NOT NULL, 
+  method_name VARCHAR(255), 
+  matrix_id INTEGER DEFAULT 0, 
+  capillary_inner INTEGER DEFAULT 0, 
+  capillary_outer INTEGER DEFAULT 0, 
+  capillary_total INTEGER DEFAULT 0, 
+  capillary_effective INTEGER DEFAULT 0, 
+  injection_method VARCHAR(255), 
+  injection_amount INTEGER DEFAULT 0, 
+  injection_unit VARCHAR(255), 
+  injection_duration INTEGER DEFAULT 0, 
+  frequency INTEGER DEFAULT 0, 
+  hv_value INTEGER DEFAULT 0, 
+  PRIMARY KEY (method_id)
+);
+
+--
+-- Dumping data for table 'methods'
 --
 
 -- 0 records
 
-SELECT setval('piigid_piigi_id_seq', MAX(piigi_id)) FROM piigid;
+SELECT setval('methods_method_id_seq', MAX(method_id)) FROM methods;
+
+CREATE INDEX methods_capillary_effective_id ON methods (capillary_effective);
+
+CREATE INDEX methods_capillary_id ON methods (capillary_inner);
+
+CREATE INDEX methods_capillary_total_id ON methods (capillary_total);
+
+CREATE INDEX methods_frequency_id ON methods (frequency);
+
+CREATE INDEX methods_injection_method_id ON methods (injection_method);
+
+CREATE INDEX methods_matrix_id ON methods (matrix_id);
+
+--
+-- Table structure for table 'analyte_measurements'
+--
+
+DROP TABLE IF EXISTS analyte_measurements;
+
+CREATE TABLE analyte_measurements (
+  analyte_measurement_id SERIAL NOT NULL, 
+  method_id INTEGER DEFAULT 0, 
+  analyte_id INTEGER DEFAULT 0, 
+  amount INTEGER DEFAULT 0, 
+  analyte_unit VARCHAR(255), 
+  PRIMARY KEY (analyte_measurement_id)
+);
+
+--
+-- Dumping data for table 'analyte_measurements'
+--
+
+-- 0 records
+
+SELECT setval('analyte_measurements_analyte_measurement_id_seq', MAX(analyte_measurement_id)) FROM analyte_measurements;
+
+CREATE INDEX analyte_measurements_analyte_id ON analyte_measurements (analyte_id);
+
+CREATE INDEX analyte_measurements_test_id ON analyte_measurements (method_id);
+
+--
+-- Table structure for table 'bge_measurements'
+--
+
+DROP TABLE IF EXISTS bge_measurements;
+
+CREATE TABLE bge_measurements (
+  bge_measurement_id SERIAL NOT NULL, 
+  method_id INTEGER DEFAULT 0, 
+  bge_id INTEGER DEFAULT 0, 
+  bge_amount INTEGER DEFAULT 0, 
+  bge_unit VARCHAR(255), 
+  PRIMARY KEY (bge_measurement_id)
+);
+
+--
+-- Dumping data for table 'bge_measurements'
+--
+
+-- 0 records
+
+SELECT setval('bge_measurements_bge_measurement_id_seq', MAX(bge_measurement_id)) FROM bge_measurements;
+
+CREATE INDEX bge_measurements_bge_id ON bge_measurements (bge_id);
+
+CREATE INDEX bge_measurements_test_id ON bge_measurements (method_id);
+
+--
+-- Table structure for table 'measurements'
+--
+
+DROP TABLE IF EXISTS measurements;
+
+CREATE TABLE measurements (
+  measurement_id SERIAL NOT NULL, 
+  test_id INTEGER DEFAULT 0, 
+  measurement INTEGER DEFAULT 0, 
+  PRIMARY KEY (measurement_id)
+);
+
+--
+-- Dumping data for table 'measurements'
+--
+
+-- 0 records
+
+SELECT setval('measurements_measurement_id_seq', MAX(measurement_id)) FROM measurements;
+
+CREATE INDEX measurements_test_id ON measurements (test_id);
+
+--
+-- Table structure for table 'tests'
+--
+
+DROP TABLE IF EXISTS tests;
+
+CREATE TABLE tests (
+  test_id SERIAL NOT NULL, 
+  user_id INTEGER DEFAULT 0, 
+  method_id INTEGER DEFAULT 0, 
+  test_time VARCHAR(255), 
+  test_description VARCHAR(255), 
+  test_duration INTEGER DEFAULT 0, 
+  PRIMARY KEY (test_id)
+);
+
+--
+-- Dumping data for table 'tests'
+--
+
+-- 0 records
+
+SELECT setval('tests_test_id_seq', MAX(test_id)) FROM tests;
+
+CREATE INDEX tests_method_id ON tests (method_id);
+
+CREATE INDEX tests_user_id ON tests (user_id);
 
