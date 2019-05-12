@@ -26,8 +26,8 @@
 --   tableprefix=
 --   negativeboolean=0
 --   ignorelargeblobs=0
---   memotype=
---   datetimetype=
+--   memotype=TEXT
+--   datetimetype=TIMESTAMP
 --
 
 DROP DATABASE IF EXISTS vee_andmebaas;
@@ -208,7 +208,8 @@ CREATE TABLE methods (
   injection_duration INTEGER DEFAULT 0, 
   frequency INTEGER DEFAULT 0, 
   hv_value INTEGER DEFAULT 0, 
-  PRIMARY KEY (method_id)
+  PRIMARY KEY (method_id),
+  method_description VARCHAR(255), 
 );
 
 --
@@ -239,6 +240,7 @@ DROP TABLE IF EXISTS analyte_measurements;
 
 CREATE TABLE analyte_measurements (
   analyte_measurement_id SERIAL NOT NULL, 
+  test_time VARCHAR(255), 
   method_id INTEGER DEFAULT 0, 
   analyte_id INTEGER DEFAULT 0, 
   amount INTEGER DEFAULT 0, 
@@ -256,7 +258,9 @@ SELECT setval('analyte_measurements_analyte_measurement_id_seq', MAX(analyte_mea
 
 CREATE INDEX analyte_measurements_analyte_id ON analyte_measurements (analyte_id);
 
-CREATE INDEX analyte_measurements_test_id ON analyte_measurements (method_id);
+CREATE INDEX analyte_measurements_method_id ON analyte_measurements (method_id);
+
+CREATE INDEX analyte_measurements_test_id1 ON analyte_measurements (test_time);
 
 --
 -- Table structure for table 'bge_measurements'
@@ -266,6 +270,7 @@ DROP TABLE IF EXISTS bge_measurements;
 
 CREATE TABLE bge_measurements (
   bge_measurement_id SERIAL NOT NULL, 
+  test_time VARCHAR(255), 
   method_id INTEGER DEFAULT 0, 
   bge_id INTEGER DEFAULT 0, 
   bge_amount INTEGER DEFAULT 0, 
@@ -283,7 +288,9 @@ SELECT setval('bge_measurements_bge_measurement_id_seq', MAX(bge_measurement_id)
 
 CREATE INDEX bge_measurements_bge_id ON bge_measurements (bge_id);
 
-CREATE INDEX bge_measurements_test_id ON bge_measurements (method_id);
+CREATE INDEX bge_measurements_method_id ON bge_measurements (method_id);
+
+CREATE INDEX bge_measurements_test_id1 ON bge_measurements (test_time);
 
 --
 -- Table structure for table 'measurements'
@@ -318,8 +325,7 @@ CREATE TABLE tests (
   test_id SERIAL NOT NULL, 
   user_id INTEGER DEFAULT 0, 
   method_id INTEGER DEFAULT 0, 
-  test_time VARCHAR(255), 
-  test_description VARCHAR(255), 
+  test_time VARCHAR(255),
   test_duration INTEGER DEFAULT 0, 
   PRIMARY KEY (test_id)
 );
@@ -334,5 +340,6 @@ SELECT setval('tests_test_id_seq', MAX(test_id)) FROM tests;
 
 CREATE INDEX tests_method_id ON tests (method_id);
 
-CREATE INDEX tests_user_id ON tests (user_id);
+CREATE INDEX tests_teststest_time ON tests (test_time);
 
+CREATE INDEX tests_user_id ON tests (user_id);
