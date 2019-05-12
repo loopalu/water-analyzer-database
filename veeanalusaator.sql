@@ -209,7 +209,7 @@ CREATE TABLE methods (
   frequency INTEGER DEFAULT 0, 
   hv_value INTEGER DEFAULT 0, 
   PRIMARY KEY (method_id),
-  method_description VARCHAR(255), 
+  method_description VARCHAR(255) 
 );
 
 --
